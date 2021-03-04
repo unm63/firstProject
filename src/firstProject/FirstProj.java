@@ -9,21 +9,17 @@ public class FirstProj {
 		 System.out.println("\n**************************************\n");
 	     System.out.println("\tWelcome! \n");
 	     System.out.println("**************************************");
-	     File directoryPath = new File("C:/Users/ujwal/eclipse-workspace/firstProject/");
-	     System.out.println(directoryPath);
-	     File filesList[] = directoryPath.listFiles();
-	      System.out.println("List of files and directories in the specified directory:");
-	      for(File file : filesList) {
-	         System.out.println("File name: "+file.getName());
-	         System.out.println("File path: "+file.getAbsolutePath());
-	         System.out.println("Size :"+file.getTotalSpace());
-	         System.out.println(" ");
-	      }
-	     optionsSelection();
+	     System.out.println("Enter name of directory");
+	     // directory on my laptop is C:/Users/ujwal/eclipse-workspace/firstProject
+     	@SuppressWarnings("resource")
+		Scanner scc = new Scanner(System.in);
+     	String dirPath = scc.next();
+     	File directoryPath = new File(dirPath);
+	     optionsSelection(directoryPath);
 	}
 	
-	     private static void optionsSelection() {
-	    	 String[] arr = {"1. I wish to see file names in ascending order",
+	     private static void optionsSelection(File directoryPath) {
+	    	 String[] arr = {"\n1. I wish to see file names in ascending order",
 		                "2. I wish to add, delete or search for user",
 		                "3. Close the application"
 		        };
@@ -31,39 +27,25 @@ public class FirstProj {
 		        int  slen = arr1.length;
 		        for(int i=0; i<slen;i++){
 		            System.out.println(arr[i]);
-		            // display the all the Strings mentioned in the String array
 		        }
 		        System.out.println("\nEnter your choice:\t");
-		        Scanner sc = new Scanner(System.in);
+		        @SuppressWarnings("resource")
+				Scanner sc = new Scanner(System.in);
 		        int  options =  sc.nextInt();
 		        for(int j=1;j<=slen;j++){
 		            if(options==j){
-		            	File directoryPath = new File("C:/Users/ujwal/eclipse-workspace/firstProject/");
 		                switch (options){
 		                    case 1:
-		                        System.out.println("The files are listed below in alphabetical order: \n");
-		                        //File directoryPath = new File("C:/Users/ujwal/eclipse-workspace/firstProject");
+		                        System.out.println("The files are listed below in alphabetical order: ");
 		                        File filesList[] = directoryPath.listFiles();
-		              	      System.out.println("List of files and directories in the specified directory:");
 		              	      for(File file : filesList) {
-		              	         System.out.println("File name: "+file.getName());
-		              	         System.out.println("File path: "+file.getAbsolutePath());
-		              	         System.out.println("Size :"+file.getTotalSpace());
-		              	         System.out.println(" ");
+		              	         System.out.println(file.getName());
 		              	      }
-		                        //System.out.println(expenses+"\n");
-		                        optionsSelection();
+		                        optionsSelection(directoryPath);
 		                        break;
 		                    case 2:
-		                        //System.out.println("Enter the value to add your Expense: \n");
-		                        //int value = sc.nextInt();
-		                        //expenses.add(value);
-		                        //System.out.println("Your value is updated\n");
-		                        //expenses.addAll(arrlist);
-		                        //System.out.println(expenses+"\n");
 		                        nextOptionsSelection(directoryPath);
-		                        optionsSelection();
-
+		                        optionsSelection(directoryPath);
 		                        break;
 		                    case 3:
 		                        closeApp();
@@ -81,7 +63,7 @@ public class FirstProj {
 		            }
 	     
 	     private static void nextOptionsSelection(File directoryPath) {
-	    	 String[] arr2 = {"1. I wish to add a file to the existing directory list",
+	    	 String[] arr2 = {"\n1. I wish to add a file to the existing directory list",
 		                "2. I wish to delete a file from the existing directory list",
 		                "3. I wish to search for a file from the existing directory list",
 		                "4. I wish to go back to the main screen"
@@ -90,35 +72,67 @@ public class FirstProj {
 		        int  slen2 = arr3.length;
 		        for(int i=0; i<slen2;i++){
 		            System.out.println(arr2[i]);
-		            // display the all the Strings mentioned in the String array
 		        }
 		        System.out.println("\nEnter your choice:\t");
-		        Scanner sc2 = new Scanner(System.in);
+		        @SuppressWarnings("resource")
+				Scanner sc2 = new Scanner(System.in);
 		        int  options2 =  sc2.nextInt();
 	    	 for (int j = 1; j<=4; j++) {
 	    		 if(options2 == j) {
 	    			 switch (options2) {
 	    			 case 1:
-	    				 //add file
-	    				 System.out.println("hey " + directoryPath);
-	    				 String textfile = "textt.txt";
+	    				 System.out.println("Type the name of the file you want to add");
+	    				 Scanner sc3 = new Scanner(System.in);
+	    				 String textfile = "/" + sc3.next();
 	    				 File userFile = new File(directoryPath + textfile);
-	    				 /*String fileName = "text.txt";
+	    				 boolean result;
 	    				 try {
-							File actualFile = File.createTempFile("text", ".txt", directoryPath);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}*/
+	    					 result = userFile.createNewFile();
+	    					 if(result) {
+	    						 System.out.println("Successfully created");
+	    					 }
+	    					 else {
+	    						 System.out.println("The file is already there");
+	    					 }
+	    				 } catch (IOException e) {
+	    					 e.printStackTrace();
+	    				 }
 	    				 break;
 	    			 case 2:
-	    				 //delete file
+	    				 System.out.println("Type the name of the file you want to delete");
+	    				 Scanner sc4 = new Scanner(System.in);
+	    				 String textfile2 = "/" + sc4.next();
+	    				 File usersFile = new File(directoryPath + textfile2);
+	    				 boolean results;
+	    				 results = usersFile.delete();
+						 if(results) {
+							 System.out.println("Successfully deleted");
+						 }
+						 else {
+							 System.out.println("Failed deleting. The file is not there.");
+						 }
 	    				 break;
 	    			 case 3:
-	    				 //search for file
+	    				 File filesList[] = directoryPath.listFiles();
+	    				 int leng = filesList.length;
+	    				 System.out.println("Type the name of the file you want to search for");
+	    				 Scanner sc5 = new Scanner(System.in);
+	    				 String textfile3 = "/" + sc5.next();
+	    				 File userssFile = new File(directoryPath + textfile3);
+	    				 boolean flag = false;
+	    				 for (int i = 0; i < leng; i++) {
+	    			        	if (filesList[i].equals(userssFile)) {
+	    			        		flag = true;
+	    			        	}
+	    			        }
+	    			        if (flag == true) {
+	    			        	System.out.println("The file is there!");
+	    			        }
+	    			        else {
+	    			        	System.out.println("The file is not there");
+	    			        }
 	    				 break;
 	    			 case 4:
-	    				 //go back to main screen
 	    				 break;
 	    			 }
 	    		 }
